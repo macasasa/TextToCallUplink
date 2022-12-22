@@ -8,12 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var vm: ViewModel
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        VStack(alignment: .leading, spacing: 20) {
+            HStack {
+                TitleText("Use text for audio calls")
+                Spacer()
+                InfoButton()
+            }
+            
+            LanguagePicker(language: $vm.language)
+            
+            RoundedBlueTextField(label: "Enter text for synthesizer", text: $vm.inputText)
+            
+            RoundedBlueButton(label: "Submit") {
+                vm.submit()
+            }
+            
+            Spacer()
         }
         .padding()
     }
